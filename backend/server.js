@@ -9,8 +9,8 @@ app.use(cors());
 
 // ===== MongoDB Connect =====
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.log("❌ Mongo Error:", err));
 
 // ===== User Schema =====
 const userSchema = new mongoose.Schema({
@@ -23,62 +23,101 @@ const User = mongoose.model("User", userSchema);
 
 // ===== Signup =====
 app.post("/signup", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const existing = await User.findOne({ email });
-  if (existing) return res.json({ success: false });
+    const existing = await User.findOne({ email });
+    if (existing) {
+      return res.json({ success: false, msg: "User already exists" });
+    }
 
-  await User.create({ email, password, tracking: [] });
+    await User.create({ email, password, tracking: [] });
 
-  res.json({ success: true });
+    res.json({ success: true });
+  } catch (err) {
+    console.log("❌ Signup Error:", err);
+    res.status(500).json({ success: false });
+  }
 });
 
 // ===== Login =====
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email, password });
+    console.log("📥 Login request:", req.body);
 
-  if (!user) return res.json({ success: false });
+    const user = await User.findOne({ email, password });
 
-  const token = jwt.sign({ email }, process.env.JWT_SECRET);
+    if (!user) {
+      return res.json({ success: false });
+    }
 
-  res.json({ success: true, token });
+    const token = jwt.sign(
+      { email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({ success: true, token });
+
+  } catch (err) {
+    console.log("❌ Login Error:", err);
+    res.status(500).json({ success: false });
+  }
 });
 
 // ===== Middleware =====
 function auth(req, res, next) {
   const { token } = req.body;
 
-  if (!token) return res.status(401).json({ success: false });
+  if (!token) {
+    return res.status(401).json({ success: false, msg: "No token" });
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
-  } catch {
-    res.status(401).json({ success: false });
+  } catch (err) {
+    return res.status(401).json({ success: false, msg: "Invalid token" });
   }
 }
 
 // ===== Save Tracking =====
 app.post("/saveTracking", auth, async (req, res) => {
-  const { tracking } = req.body;
+  try {
+    const { tracking } = req.body;
 
-  await User.updateOne(
-    { email: req.user.email },
-    { tracking }
-  );
+    await User.updateOne(
+      { email: req.user.email },
+      { tracking }
+    );
 
-  res.json({ success: true });
+    res.json({ success: true });
+
+  } catch (err) {
+    console.log("❌ Save Tracking Error:", err);
+    res.status(500).json({ success: false });
+  }
 });
 
 // ===== Get Tracking =====
 app.post("/getTracking", auth, async (req, res) => {
-  const user = await User.findOne({ email: req.user.email });
+  try {
+    const user = await User.findOne({ email: req.user.email });
 
-  res.json({ tracking: user.tracking || [] });
+    res.json({ tracking: user?.tracking || [] });
+
+  } catch (err) {
+    console.log("❌ Get Tracking Error:", err);
+    res.status(500).json({ success: false });
+  }
 });
 
-// ===== Server =====
-app.listen(5000, () => console.log("Server running"));
+// ===== Server (FIXED FOR RENDER) =====
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
