@@ -1,11 +1,11 @@
-// 🔐 Get token
+const user = localStorage.getItem("currentUser");
 const token = localStorage.getItem("token");
 
-if (!token) {
-  window.location.href = "login.html";
+if (!user || !token) {
+  window.location.href = "index.html";
 }
 
-// ===== SAVE =====
+// SAVE FUNCTION
 async function saveTracking() {
   console.log("🚀 Button clicked");
 
@@ -16,8 +16,6 @@ async function saveTracking() {
     tracking.push(input.type === "checkbox" ? input.checked : input.value);
   });
 
-  console.log("📤 Sending:", { tracking });
-
   try {
     const res = await fetch("https://prepsphere-0p2v.onrender.com/saveTracking", {
       method: "POST",
@@ -25,40 +23,38 @@ async function saveTracking() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        token: token,
-        tracking: tracking
+        token,            // ✅ VERY IMPORTANT
+        tracking
       })
     });
 
     const data = await res.json();
-    console.log("✅ Response:", data);
 
     if (data.success) {
-      alert("Progress saved successfully!");
+      alert("Progress saved!");
     } else {
-      alert("Error saving progress");
+      alert("Save failed");
     }
 
   } catch (err) {
-    console.error("❌ Fetch error:", err);
+    console.error(err);
   }
 }
 
-// ===== LOAD =====
+// LOAD FUNCTION
 async function loadTracking() {
-  if (!token) return;
-
   try {
     const res = await fetch("https://prepsphere-0p2v.onrender.com/getTracking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ token })
+      body: JSON.stringify({
+        token   // ✅ VERY IMPORTANT
+      })
     });
 
     const data = await res.json();
-    console.log("📥 Loaded:", data);
 
     if (data.tracking) {
       const inputs = document.querySelectorAll("input");
@@ -74,12 +70,10 @@ async function loadTracking() {
     }
 
   } catch (err) {
-    console.error("❌ Load error:", err);
+    console.error(err);
   }
 }
 
-// ===== INIT =====
 loadTracking();
 
-// ===== BUTTON =====
 document.getElementById("saveBtn").addEventListener("click", saveTracking);

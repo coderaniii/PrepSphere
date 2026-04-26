@@ -34,9 +34,10 @@
         console.log(data);
 
         if (data.success) {
-          localStorage.setItem("token", data.token); // ✅ IMPORTANT
-          window.location.href = "dashboard.html";
-        } else {
+  localStorage.setItem("currentUser", email);
+  localStorage.setItem("token", data.token); // ✅ ADD THIS
+  window.location.href = "dashboard.html";
+} else {
           alert("Invalid credentials");
         }
       }
