@@ -31,13 +31,14 @@
         });
 
         const data = await res.json();
-        console.log(data);
+
+        console.log("LOGIN RESPONSE 👉", data); // 🔥 IMPORTANT
 
         if (data.success) {
-  localStorage.setItem("currentUser", email);
-  localStorage.setItem("token", data.token); // ✅ ADD THIS
-  window.location.href = "dashboard.html";
-} else {
+          localStorage.setItem("currentUser", email);
+          localStorage.setItem("token", data.token);
+          window.location.href = "dashboard.html";
+        } else {
           alert("Invalid credentials");
         }
       }
