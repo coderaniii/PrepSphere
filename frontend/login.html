@@ -1,47 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login - PrepSphere</title>
-  <link rel="stylesheet" href="auth.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - PrepSphere</title>
+    <link rel="stylesheet" href="auth.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="auth-container">
+      <h1>Login</h1>
 
-<div class="auth-container">
-  <h1>Login</h1>
+      <input type="text" id="email" placeholder="Enter Email" />
+      <input type="password" id="password" placeholder="Enter Password" />
 
-  <input type="text" id="email" placeholder="Enter Email">
-  <input type="password" id="password" placeholder="Enter Password">
+      <button onclick="login()">Login</button>
+      <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
 
-  <button onclick="login()">Login</button>
-  <p>Don't have an account? <a href="signup.html">Sign up</a></p>
-</div>
+    <script>
+      async function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-<script>
-async function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+        const res = await fetch("https://prepsphere-0p2v.onrender.com/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-  const res = await fetch("https://prepsphere-0p2v.onrender.com/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  });
+        const data = await res.json();
 
-  const data = await res.json();
-
-  if (data.success) {
-    localStorage.setItem("currentUser", email);
-    localStorage.setItem("userMode", "user");
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Invalid credentials");
-  }
-}
-</script>
-
-</body>
+        if (data.success) {
+          localStorage.setItem("token", data.token); // ✅ IMPORTANT
+          window.location.href = "dashboard.html";
+        } else {
+          alert("Invalid credentials");
+        }
+      }
+    </script>
+  </body>
 </html>
