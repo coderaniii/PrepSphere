@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #000000;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+header h1 {
+  font-size: 28px;
+}
+
+/* Dashboard container */
+.dashboard {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Grid */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 250px); /* fixed layout */
+  gap: 30px;
+}
+
+/* Card */
+.card {
+  background: #111111;
+  padding: 25px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  text-align: center;
+  
+  /* ADD THIS */
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+/* Image */
+.card img {
+  width: 70px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+/* Text */
+.card h2 {
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Hover */
+.card:hover {
+  transform: translateY(-10px) scale(1.04);
+  border-color: #ef4444;
+  box-shadow: 0 15px 40px rgba(239, 68, 68, 0.35);
+}
+
+.card:hover img {
+  transform: scale(1.15);
+}
+
+/* Highlight */
+.highlight {
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-section button {
+  padding: 8px 12px;
+  background: #ef4444;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.user-section button:hover {
+  background: #dc2626;
+}

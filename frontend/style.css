@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Glow effect */
+.background-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: red;
+  opacity: 0.15;
+  filter: blur(120px);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Main container */
+.container {
+  text-align: center;
+  z-index: 1;
+}
+
+/* Title */
+.title {
+  font-size: 64px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Tagline */
+.tagline {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.tagline span {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* Button */
+button {
+  margin-top: 30px;
+  padding: 12px 28px;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.auth-buttons {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.auth-buttons button {
+  margin: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ef4444;
+  color: white;
+  cursor: pointer;
+}
+
+.auth-buttons button:hover {
+  background: #dc2626;
+}

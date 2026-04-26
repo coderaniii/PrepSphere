@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #000000;
+  color: white;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+header h1 {
+  font-size: 26px;
+}
+
+/* Grid Layout */
+.grid {
+  padding: 50px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 320px);
+  gap: 35px;
+  justify-content: center;
+}
+
+/* Cards */
+.card {
+  background: #111111;
+  padding: 30px;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* Title */
+.card h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+/* Description */
+.card p {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Hover Effect */
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #ef4444;
+  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.3);
+}

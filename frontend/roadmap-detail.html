@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roadmap</title>
+  <link rel="stylesheet" href="roadmap-detail.css">
+</head>
+
+<body>
+
+<header>
+  <h1 id="title">Roadmap</h1>
+</header>
+
+<main id="roadmap"></main>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role");
+
+const data = {
+
+  sde: [
+    "Choose Language (C++/Java/Python)",
+    "Learn Basics (Loops, Functions)",
+    "Master DSA (Arrays → Graphs → DP)",
+    "Practice LeetCode (150+ problems)",
+    "System Design Basics",
+    "Build Projects",
+    "Apply for SDE roles"
+  ],
+
+  data: [
+    "Learn Excel & Statistics",
+    "SQL (Joins, Queries)",
+    "Python (Pandas, Numpy)",
+    "Data Visualization (Power BI/Tableau)",
+    "Projects (Dashboards)",
+    "Case Studies",
+    "Apply for Data Analyst roles"
+  ],
+
+  consult: [
+    "Understand Business Basics",
+    "Case Study Practice",
+    "Logical & Analytical Thinking",
+    "Excel & PowerPoint",
+    "Communication Skills",
+    "Mock Interviews",
+    "Apply for Consulting roles"
+  ],
+
+  marketing: [
+    "Learn Digital Marketing Basics",
+    "SEO & SEM",
+    "Social Media Marketing",
+    "Content Strategy",
+    "Analytics (Google Analytics)",
+    "Run Campaign Projects",
+    "Apply for Marketing roles"
+  ],
+
+  aiml: [
+    "Python Programming",
+    "Math (Linear Algebra, Probability)",
+    "Machine Learning Algorithms",
+    "Deep Learning (Neural Networks)",
+    "Projects (ML Models)",
+    "Kaggle Practice",
+    "Apply for AI/ML roles"
+  ],
+
+  cloud: [
+    "Learn Linux Basics",
+    "Networking Fundamentals",
+    "Cloud Platforms (AWS/Azure/GCP)",
+    "DevOps Basics",
+    "Docker & Kubernetes",
+    "Build Cloud Projects",
+    "Apply for Cloud roles"
+  ],
+
+  datasci: [
+    "Python + Statistics",
+    "Data Cleaning & Preprocessing",
+    "Machine Learning",
+    "Data Visualization",
+    "Projects (End-to-End)",
+    "Kaggle Competitions",
+    "Apply for Data Scientist roles"
+  ]
+
+};
+
+document.getElementById("title").innerText = role.toUpperCase() + " Roadmap";
+
+const container = document.getElementById("roadmap");
+
+(data[role] || ["Coming Soon"]).forEach(step => {
+  const div = document.createElement("div");
+  div.className = "step";
+  div.innerText = step;
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>

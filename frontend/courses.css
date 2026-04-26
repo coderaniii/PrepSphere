@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #000000;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Center container */
+.grid {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 3x2 layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  gap: 35px;
+}
+
+/* Card */
+.card {
+  background: #111111;
+  padding: 30px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  text-align: center;
+}
+
+/* Image */
+.card img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+/* Text */
+.card h2 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #94a3b8;
+}
+
+/* Hover */
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #ef4444;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+}
+
+.card:hover img {
+  transform: scale(1.15);
+}

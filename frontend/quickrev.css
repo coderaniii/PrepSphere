@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #000000;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+header h1 {
+  font-size: 28px;
+}
+
+/* Grid */
+.grid {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  gap: 30px;
+  justify-content: center;
+}
+
+/* Card */
+.card {
+  background: #111111;
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Title */
+.card h2 {
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+/* Description */
+.card p {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* Time Complexity */
+.tc {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: #ef4444;
+  gap: 2px;
+}
+
+/* Space Complexity */
+.sc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* Leetcode */
+.card small {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ef4444;
+}
+
+/* Hover */
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #ef4444;
+  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.25);
+}

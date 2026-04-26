@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PrepSphere Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+<header class="topbar">
+  <h1>PrepSphere</h1>
+
+  <div class="user-section">
+    <span id="welcomeUser"></span>
+    <button onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<main class="dashboard">
+
+  <div class="card" onclick="navigate('courses.html')">
+    <img src="https://img.icons8.com/fluency/96/code.png"/>
+    <h2>Courses</h2>
+    <p>Learn from curated resources</p>
+  </div>
+
+  <div class="card" onclick="navigate('tracking.html')">
+    <img src="https://img.icons8.com/fluency/96/todo-list.png"/>
+    <h2>Tracking</h2>
+    <p>Track your daily progress</p>
+  </div>
+
+  <div class="card" onclick="navigate('sheets.html')">
+    <img src="https://img.icons8.com/fluency/96/book.png"/>
+    <h2>Sheets</h2>
+    <p>Practice coding sheets</p>
+  </div>
+
+  <div class="card" onclick="navigate('roadmaps.html')">
+    <img src="https://img.icons8.com/fluency/96/road.png"/>
+    <h2>Roadmaps</h2>
+    <p>Follow structured paths</p>
+  </div>
+
+  <div class="card highlight" onclick="navigate('quickrev.html')">
+    <img src="https://img.icons8.com/fluency/96/flash-on.png"/>
+    <h2>QuickRev ⚡</h2>
+    <p>Revise concepts fast</p>
+  </div>
+
+  
+
+</main>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>
