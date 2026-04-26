@@ -1,88 +1,84 @@
-console.log("🚀 SERVER FILE LOADED");
 const express = require("express");
-const fs = require("fs");
+const mongoose = require("mongoose");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const FILE = "users.json";
+// ===== MongoDB Connect =====
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
-// Read users
-function getUsers() {
-  if (!fs.existsSync(FILE)) return [];
-  return JSON.parse(fs.readFileSync(FILE));
-}
+// ===== User Schema =====
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+  tracking: Array
+});
 
-// Save users
-function saveUsers(users) {
-  fs.writeFileSync(FILE, JSON.stringify(users, null, 2));
-}
+const User = mongoose.model("User", userSchema);
 
-// SIGNUP
-app.post("/signup", (req, res) => {
-  const users = getUsers();
+// ===== Signup =====
+app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
 
-  if (users.find(u => u.email === email)) {
-    return res.json({ success: false });
-  }
+  const existing = await User.findOne({ email });
+  if (existing) return res.json({ success: false });
 
-  users.push({ email, password });
-  saveUsers(users);
+  await User.create({ email, password, tracking: [] });
 
   res.json({ success: true });
 });
 
-// LOGIN
-app.post("/login", (req, res) => {
-  const users = getUsers();
+// ===== Login =====
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  const user = users.find(u => u.email === email && u.password === password);
+  const user = await User.findOne({ email, password });
 
-  if (user) {
-    res.json({ success: true });
-  } else {
-    res.json({ success: false });
-  }
+  if (!user) return res.json({ success: false });
+
+  const token = jwt.sign({ email }, process.env.JWT_SECRET);
+
+  res.json({ success: true, token });
 });
 
-// SAVE TRACKING
-app.post("/saveTracking", (req, res) => {
-  console.log("🔥 SAVE HIT", req.body);
+// ===== Middleware =====
+function auth(req, res, next) {
+  const { token } = req.body;
 
-  const users = getUsers();
-  const { email, tracking } = req.body;
+  if (!token) return res.status(401).json({ success: false });
 
-  const user = users.find(u => u.email === email);
-
-  if (!user) {
-    return res.json({ success: false });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    res.status(401).json({ success: false });
   }
+}
 
-  user.tracking = tracking;
-  saveUsers(users);
+// ===== Save Tracking =====
+app.post("/saveTracking", auth, async (req, res) => {
+  const { tracking } = req.body;
+
+  await User.updateOne(
+    { email: req.user.email },
+    { tracking }
+  );
 
   res.json({ success: true });
 });
 
-// GET TRACKING (THIS WAS MISSING / NOT ACTIVE)
-app.post("/getTracking", (req, res) => {
-  console.log("📥 GET HIT", req.body);
+// ===== Get Tracking =====
+app.post("/getTracking", auth, async (req, res) => {
+  const user = await User.findOne({ email: req.user.email });
 
-  const users = getUsers();
-  const { email } = req.body;
-
-  const user = users.find(u => u.email === email);
-
-  if (!user || !user.tracking) {
-    return res.json({ success: true, tracking: [] });
-  }
-
-  res.json({ success: true, tracking: user.tracking });
+  res.json({ tracking: user.tracking || [] });
 });
 
-// START SERVER
-app.listen(5000, () => console.log("Server running on port 5000"));
+// ===== Server =====
+app.listen(5000, () => console.log("Server running"));
