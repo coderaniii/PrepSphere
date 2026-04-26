@@ -4,7 +4,7 @@
 
 
  🌐 Live Demo
-🔗 https://snazzy-florentine-d09697.netlify.app
+🔗 [https://snazzy-florentine-d09697.netlify.app](https://snazzy-florentine-d09697.netlify.app/)
 
 
  ✨ Features
