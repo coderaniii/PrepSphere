@@ -63,4 +63,4 @@
 
  ⭐ If you like this project
 
-Give it a ⭐ on GitHub — it helps a lot!
+Give it a ⭐ on GitHub!
