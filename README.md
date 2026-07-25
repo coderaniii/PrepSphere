@@ -52,7 +52,7 @@
 🚀 Future Improvements
 
 - 📊 Analytics dashboard
-- 📈 Progress visualization charts
+- 📈 Progress visualization chart
 - 🎯 Personalized learning paths
 - 🧠 AI-based recommendations
 
