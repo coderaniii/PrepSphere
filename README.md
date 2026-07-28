@@ -27,7 +27,7 @@
 - Express.js
 
 **Database**
-- MongoDB (Atlas) 
+- MongoDB
 
 **Deployment**
 - Netlify (Frontend)
