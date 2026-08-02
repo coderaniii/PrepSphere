@@ -10,7 +10,7 @@
  ✨ Features
 
 - 🔐 User Authentication (Login / Signup)
-- 🧠 DSA Progress Tracker UI
+- 🧠 DSA Progress Tracker UI for easy usage
 - 💾 Data stored using MongoDB
 - ⚡ Fast and responsive frontend
 - 🔄 Backend API deployed on Render
