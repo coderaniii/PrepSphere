@@ -45,7 +45,7 @@
 4. Data is sent to backend
 5. MongoDB stores user progress
 
- 🚧 Current Limitations
+ 🚧 Current Limitations(in progress)
 
 - Progress tracking save/load has minor issues (being improved)
 
